@@ -106,6 +106,8 @@ var currentPoster;
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
+// This function returns a random valid index from the given array
+// Math.floor rounds it down to the nearest whole number
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -117,3 +119,10 @@ function createPoster(imageURL, title, quote) {
     title: title, 
     quote: quote}
 }
+
+var currentPoster = createPoster(
+  images[getRandomIndex(images)],
+  titles[getRandomIndex(titles)],
+  quotes[getRandomIndex(quotes)]
+)
+//something to randomly select the assets from above for the main page.
