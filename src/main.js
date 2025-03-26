@@ -1,4 +1,27 @@
 // query selector variables go here 👇
+// Main Poster
+var posterImage = document.querySelector('.poster-img') // poster image
+var posterTitle = document.querySelector('.poster-title') // poster title
+var posterQuote = document.querySelector('.poster-quote') // poster quote
+
+// Buttons
+var showRandomButton = document.querySelector('.show-random') // show another random poster button
+var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
+var takeMeBackButton = document.querySelector('.show-main') // nevermind, take me back button
+var showSavedButton = document.querySelector('.show-saved') //Show saved posters button
+var backToMainButton = document.querySelector('.back-to-main') //back to main button
+var showMyPosterButton = document.querySelector('.make-poster') //button to show created poster
+
+// Pages
+var mainPage = document.querySelector('.main-poster') //selecting the mainPage
+var formPage = document.querySelector('.poster-form') //selecting the formPage
+var savedPage = document.querySelector('.saved-posters') //selecting the savedPage
+
+// Input Fields
+var ownPosterImage = document.querySelector('#poster-image-url') // image url field to create new poster
+var ownPosterTitle = document.querySelector('#poster-title') // poster title field to create new poster
+var ownPosterQuote = document.querySelector('#poster-quote') // poster quote field to create new poster
+
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
@@ -103,14 +126,21 @@ var savedPosters = [];
 var currentPoster;
 
 // event listeners go here 👇
+showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
+makePosterButton.addEventListener("click", toggleToForm) //eventListener to create form
+takeMeBackButton.addEventListener("click", toggleToMain) //eventListener to go back to main page
+showSavedButton.addEventListener("click", showSavedPosters) //eventListener to go to saved poster pages
+backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
+showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
+
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
-// This function returns a random valid index from the given array
-// Math.floor rounds it down to the nearest whole number
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
+// This function returns a random valid index from the given array
+// Math.floor rounds it down to the nearest whole number
 
 function createPoster(imageURL, title, quote) {
   return {
@@ -120,42 +150,6 @@ function createPoster(imageURL, title, quote) {
     quote: quote}
 }
 
-// Main Poster
-var posterImage = document.querySelector('.poster-img') // poster image
-var posterTitle = document.querySelector('.poster-title') // poster title
-var posterQuote = document.querySelector('.poster-quote') // poster quote
-
-// Buttons
-var showRandomButton = document.querySelector('.show-random') // show another random poster button
-var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
-var takeMeBackButton = document.querySelector('.show-main') // nevermind, take me back button
-var showSavedButton = document.querySelector('.show-saved') //Show saved posters button
-var backToMainButton = document.querySelector('.back-to-main') //back to main button
-var showMyPosterButton = document.querySelector('.make-poster') //button to show created poster
-
-// Pages
-var mainPage = document.querySelector('.main-poster') //selecting the mainPage
-var formPage = document.querySelector('.poster-form') //selecting the formPage
-var savedPage = document.querySelector('.saved-posters') //selecting the savedPage
-
-// Input Fields
-var ownPosterImage = document.querySelector('#poster-image-url') // image url field to create new poster
-var ownPosterTitle = document.querySelector('#poster-title') // poster title field to create new poster
-var ownPosterQuote = document.querySelector('#poster-quote') // poster quote field to create new poster
-
-//Listeners
-showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
-makePosterButton.addEventListener("click", toggleToForm) //eventListener to create form
-takeMeBackButton.addEventListener("click", toggleToMain) //eventListener to go back to main page
-showSavedButton.addEventListener("click", showSavedPosters) //eventListener to go to saved poster pages
-backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
-showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
-
-
-
-
-
-// Functions
 function changeContent() { //function to change the poster content
 
   var newPoster = createPoster(
@@ -191,28 +185,25 @@ function goBackToMain() {
 }
 
 function createNewPoster(event) {
-  event.preventDefault();
+  event.preventDefault(); //Preventing default page refresh
 
   currentPoster = createPoster(
   ownPosterImage.value,
   ownPosterTitle.value,
   ownPosterQuote.value
-);
+  );
 
-//Save inputs into arrays
-images.push(currentPoster.imageURL);
-titles.push(currentPoster.title);
-quotes.push(currentPoster.quote);
+  //Save inputs into arrays
+  images.push(currentPoster.imageURL);
+  titles.push(currentPoster.title);
+  quotes.push(currentPoster.quote);
 
+  //Update DOM
+  posterImage.src = currentPoster.imageURL;
+  posterTitle.innerText = currentPoster.title;
+  posterQuote.innerText = currentPoster.quote;
 
-
-//Update DOM
-posterImage.src = currentPoster.imageURL;
-
-// Swap back to main view
-formPage.classList.add('hidden');
-mainPage.classList.remove('hidden');
-
+  // Swap back to main view
+  formPage.classList.add('hidden');
+  mainPage.classList.remove('hidden');
 }
-
-console.log(currentPoster)
