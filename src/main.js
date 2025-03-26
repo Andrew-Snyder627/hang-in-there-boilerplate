@@ -120,9 +120,28 @@ function createPoster(imageURL, title, quote) {
     quote: quote}
 }
 
-var currentPoster = createPoster(
-  images[getRandomIndex(images)],
-  titles[getRandomIndex(titles)],
-  quotes[getRandomIndex(quotes)]
-)
+
+titleImage = document.querySelector('.poster-img') // add in id for html
+titleTitle = document.querySelector('.poster-title') // add in id for html
+titleQuote = document.querySelector('.poster-quote') // add in id for html
+
+// titleImage.src = newPoster.imageURL //THIS WORKS
+// console.log(titleImage)
 //something to randomly select the assets from above for the main page.
+
+var button = document.querySelector('.show-random') // add in id in HTML
+
+button.addEventListener("click", changeContent)
+
+function changeContent() {
+
+  var newPoster = createPoster(
+    images[getRandomIndex(images)],
+    titles[getRandomIndex(titles)],
+    quotes[getRandomIndex(quotes)]
+  );
+
+  titleImage.src = newPoster.imageURL;
+  titleTitle.innerText = newPoster.title;
+  titleQuote.innerText = newPoster.quote;
+}
