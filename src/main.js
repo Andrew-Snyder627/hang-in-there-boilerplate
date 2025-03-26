@@ -121,19 +121,22 @@ function createPoster(imageURL, title, quote) {
 }
 
 
-titleImage = document.querySelector('.poster-img') // add in id for html
-titleTitle = document.querySelector('.poster-title') // add in id for html
-titleQuote = document.querySelector('.poster-quote') // add in id for html
+var posterImage = document.querySelector('.poster-img') // poster image
+var posterTitle = document.querySelector('.poster-title') // poster title
+var posterQuote = document.querySelector('.poster-quote') // poster quote
+var showRandomButton = document.querySelector('.show-random') // show another random poster button
 
-// titleImage.src = newPoster.imageURL //THIS WORKS
-// console.log(titleImage)
-//something to randomly select the assets from above for the main page.
+var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
+var mainPage = document.querySelector('.main-poster') //selecting the mainPage
+var formPage = document.querySelector('.poster-form') //selecting the formPage
 
-var button = document.querySelector('.show-random') // add in id in HTML
+showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
+makePosterButton.addEventListener("click", toggleToForm)
 
-button.addEventListener("click", changeContent)
 
-function changeContent() {
+
+
+function changeContent() { //function to change the poster content
 
   var newPoster = createPoster(
     images[getRandomIndex(images)],
@@ -141,7 +144,12 @@ function changeContent() {
     quotes[getRandomIndex(quotes)]
   );
 
-  titleImage.src = newPoster.imageURL;
-  titleTitle.innerText = newPoster.title;
-  titleQuote.innerText = newPoster.quote;
+  posterImage.src = newPoster.imageURL;
+  posterTitle.innerText = newPoster.title;
+  posterQuote.innerText = newPoster.quote;
+}
+
+function toggleToForm() {
+  mainPage.classList.add('hidden')
+  formPage.classList.remove('hidden')
 }
