@@ -131,11 +131,17 @@ var makePosterButton = document.querySelector('.show-form') //selecting the make
 var takeMeBackButton = document.querySelector('.show-main') // nevermind, take me back button
 var showSavedButton = document.querySelector('.show-saved') //Show saved posters button
 var backToMainButton = document.querySelector('.back-to-main') //back to main button
+var showMyPosterButton = document.querySelector('.make-poster') //button to show created poster
 
 // Pages
 var mainPage = document.querySelector('.main-poster') //selecting the mainPage
 var formPage = document.querySelector('.poster-form') //selecting the formPage
 var savedPage = document.querySelector('.saved-posters') //selecting the savedPage
+
+// Input Fields
+var ownPosterImage = document.querySelector('#poster-image-url') // image url field to create new poster
+var ownPosterTitle = document.querySelector('#poster-title') // poster title field to create new poster
+var ownPosterQuote = document.querySelector('#poster-quote') // poster quote field to create new poster
 
 //Listeners
 showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
@@ -143,10 +149,13 @@ makePosterButton.addEventListener("click", toggleToForm) //eventListener to crea
 takeMeBackButton.addEventListener("click", toggleToMain) //eventListener to go back to main page
 showSavedButton.addEventListener("click", showSavedPosters) //eventListener to go to saved poster pages
 backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
+showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
 
 
 
 
+
+// Functions
 function changeContent() { //function to change the poster content
 
   var newPoster = createPoster(
@@ -180,3 +189,10 @@ function goBackToMain() {
   savedPage.classList.add('hidden')
   mainPage.classList.remove('hidden')
 }
+
+function createNewPoster() {
+  currentPoster = createPoster(ownPosterImage.value, ownPosterTitle.value, ownPosterQuote.value)
+
+}
+
+console.log(currentPoster)
