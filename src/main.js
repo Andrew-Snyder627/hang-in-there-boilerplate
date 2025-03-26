@@ -120,18 +120,29 @@ function createPoster(imageURL, title, quote) {
     quote: quote}
 }
 
-
+// Main Poster
 var posterImage = document.querySelector('.poster-img') // poster image
 var posterTitle = document.querySelector('.poster-title') // poster title
 var posterQuote = document.querySelector('.poster-quote') // poster quote
-var showRandomButton = document.querySelector('.show-random') // show another random poster button
 
+// Buttons
+var showRandomButton = document.querySelector('.show-random') // show another random poster button
 var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
+var takeMeBackButton = document.querySelector('.show-main') // nevermind, take me back button
+var showSavedButton = document.querySelector('.show-saved') //Show saved posters button
+var backToMainButton = document.querySelector('.back-to-main') //back to main button
+
+// Pages
 var mainPage = document.querySelector('.main-poster') //selecting the mainPage
 var formPage = document.querySelector('.poster-form') //selecting the formPage
+var savedPage = document.querySelector('.saved-posters') //selecting the savedPage
 
+//Listeners
 showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
-makePosterButton.addEventListener("click", toggleToForm)
+makePosterButton.addEventListener("click", toggleToForm) //eventListener to create form
+takeMeBackButton.addEventListener("click", toggleToMain) //eventListener to go back to main page
+showSavedButton.addEventListener("click", showSavedPosters) //eventListener to go to saved poster pages
+backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
 
 
 
@@ -149,7 +160,23 @@ function changeContent() { //function to change the poster content
   posterQuote.innerText = newPoster.quote;
 }
 
+// Refactor to a reusable function to control shown/hidden
 function toggleToForm() {
   mainPage.classList.add('hidden')
   formPage.classList.remove('hidden')
+}
+
+function toggleToMain() {
+  formPage.classList.add('hidden')
+  mainPage.classList.remove('hidden')
+}
+
+function showSavedPosters() {
+  mainPage.classList.add('hidden')
+  savedPage.classList.remove('hidden')
+}
+
+function goBackToMain() {
+  savedPage.classList.add('hidden')
+  mainPage.classList.remove('hidden')
 }
