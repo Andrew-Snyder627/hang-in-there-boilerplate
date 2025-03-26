@@ -190,8 +190,28 @@ function goBackToMain() {
   mainPage.classList.remove('hidden')
 }
 
-function createNewPoster() {
-  currentPoster = createPoster(ownPosterImage.value, ownPosterTitle.value, ownPosterQuote.value)
+function createNewPoster(event) {
+  event.preventDefault();
+
+  currentPoster = createPoster(
+  ownPosterImage.value,
+  ownPosterTitle.value,
+  ownPosterQuote.value
+);
+
+//Save inputs into arrays
+images.push(currentPoster.imageURL);
+titles.push(currentPoster.title);
+quotes.push(currentPoster.quote);
+
+
+
+//Update DOM
+posterImage.src = currentPoster.imageURL;
+
+// Swap back to main view
+formPage.classList.add('hidden');
+mainPage.classList.remove('hidden');
 
 }
 
