@@ -216,13 +216,12 @@ function createNewPoster(event) {
 
 function saveCurrentPoster() {
   // console.log(currentPoster)
-  if (!savedPosters.some(isSamePoster)) {
+  if (!savedPosters.some(isSamePoster)) { // iterator method to check each poster against method below
     savedPosters.push(currentPoster) // add to the array if above condition is met
   }
 }
 
 function isSamePoster(poster) { // Helper to check if poster already exists for function above
-  console.log(poster)
   return poster.id === currentPoster.id; // Does not work, needs a refactor
 }
 
