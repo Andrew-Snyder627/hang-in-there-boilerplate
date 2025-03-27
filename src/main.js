@@ -11,6 +11,7 @@ var takeMeBackButton = document.querySelector('.show-main') // nevermind, take m
 var showSavedButton = document.querySelector('.show-saved') //Show saved posters button
 var backToMainButton = document.querySelector('.back-to-main') //back to main button
 var showMyPosterButton = document.querySelector('.make-poster') //button to show created poster
+var savePosterButton = document.querySelector('.save-poster') // button to save poster
 
 // Pages
 var mainPage = document.querySelector('.main-poster') //selecting the mainPage
@@ -132,6 +133,7 @@ takeMeBackButton.addEventListener("click", toggleToMain) //eventListener to go b
 showSavedButton.addEventListener("click", showSavedPosters) //eventListener to go to saved poster pages
 backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
 showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
+savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to save a poster
 
 
 // functions and event handlers go here 👇
@@ -177,6 +179,7 @@ function toggleToMain() {
 function showSavedPosters() {
   mainPage.classList.add('hidden')
   savedPage.classList.remove('hidden')
+  displaySavedPosters()
 }
 
 function goBackToMain() {
@@ -206,4 +209,18 @@ function createNewPoster(event) {
   // Swap back to main view
   formPage.classList.add('hidden');
   mainPage.classList.remove('hidden');
+}
+
+function saveCurrentPoster() {
+  if (!savedPosters.some(isSamePoster)) {
+    savedPosters.push(currentPoster) // add to the array if above condition is met
+  }
+}
+
+function isSamePoster(poster) { // Helper to check if poster already exists for function above
+  return poster.id === currentPoster.id; // is ID the best thing to check here?
+}
+
+function displaySavedPosters() {
+  
 }
