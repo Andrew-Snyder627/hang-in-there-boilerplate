@@ -4,6 +4,9 @@ var posterImage = document.querySelector('.poster-img') // poster image
 var posterTitle = document.querySelector('.poster-title') // poster title
 var posterQuote = document.querySelector('.poster-quote') // poster quote
 
+// Saved Posters //Is this in a good spot?
+var savedGrid = document.querySelector('.saved-posters-grid') //selects saved poster grid area
+
 // Buttons
 var showRandomButton = document.querySelector('.show-random') // show another random poster button
 var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
@@ -154,15 +157,15 @@ function createPoster(imageURL, title, quote) {
 
 function changeContent() { //function to change the poster content
 
-  var newPoster = createPoster(
+  currentPoster = createPoster(
     images[getRandomIndex(images)],
     titles[getRandomIndex(titles)],
     quotes[getRandomIndex(quotes)]
   );
 
-  posterImage.src = newPoster.imageURL;
-  posterTitle.innerText = newPoster.title;
-  posterQuote.innerText = newPoster.quote;
+  posterImage.src = currentPoster.imageURL;
+  posterTitle.innerText = currentPoster.title;
+  posterQuote.innerText = currentPoster.quote;
 }
 
 // Refactor to a reusable function to control shown/hidden
@@ -212,15 +215,29 @@ function createNewPoster(event) {
 }
 
 function saveCurrentPoster() {
+  // console.log(currentPoster)
   if (!savedPosters.some(isSamePoster)) {
     savedPosters.push(currentPoster) // add to the array if above condition is met
   }
 }
 
 function isSamePoster(poster) { // Helper to check if poster already exists for function above
-  return poster.id === currentPoster.id; // is ID the best thing to check here?
+  console.log(poster)
+  return poster.id === currentPoster.id; // Does not work, needs a refactor
 }
 
 function displaySavedPosters() {
-  
+  savedGrid.innerHTML = '' // Clear the existing grid, ran into trouble here
+
+  for (var i = 0; i < savedPosters.length; i++) {
+    var poster = savedPosters[i];
+
+    savedGrid.innerHTML += `
+    <div class="mini-poster">
+      <img src="${poster.imageURL}" alt="Mini Poster Image">
+      <h2>${poster.title}</h2>
+      <h4>${poster.quote}</h4>
+      </div>
+    `
+  }
 }
