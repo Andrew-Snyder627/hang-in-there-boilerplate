@@ -138,6 +138,9 @@ backToMainButton.addEventListener("click", goBackToMain) //eventListener to go b
 showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
 savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to save a poster
 
+// Load event
+window.addEventListener('load', changeContent); //eventListener on the browser window, fires when the entire page is loaded
+
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
@@ -168,7 +171,7 @@ function changeContent() { //function to change the poster content
   posterQuote.innerText = currentPoster.quote;
 }
 
-// Refactor to a reusable function to control shown/hidden
+// Refactor to a reusable function to control shown/hidden toggleElement with page as the argument, possible if statement
 function toggleToForm() {
   mainPage.classList.add('hidden')
   formPage.classList.remove('hidden')
@@ -216,13 +219,17 @@ function createNewPoster(event) {
 
 function saveCurrentPoster() {
   // console.log(currentPoster)
-  if (!savedPosters.some(isSamePoster)) { // iterator method to check each poster against method below
+  if (!savedPosters.some(isSamePoster)) { // iterator method to check each poster against method below, refactor with include
     savedPosters.push(currentPoster) // add to the array if above condition is met
   }
 }
 
 function isSamePoster(poster) { // Helper to check if poster already exists for function above
-  return poster.id === currentPoster.id; // Does not work, needs a refactor
+  return (
+    poster.imageURL === currentPoster.imageURL &&
+    poster.title === currentPoster.title &&
+    poster.quote === currentPoster.quote
+  );
 }
 
 function displaySavedPosters() {
