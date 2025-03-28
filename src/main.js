@@ -6,7 +6,7 @@ var posterQuote = document.querySelector('.poster-quote') // poster quote
 
 // Saved Posters //Is this in a good spot?
 var savedGrid = document.querySelector('.saved-posters-grid') //selects saved poster grid area
-
+var unmotivationalPostersGrid = document.querySelector('.unmotivational-posters-grid') //selects unmotivational poster grid
 // Buttons
 var showRandomButton = document.querySelector('.show-random') // show another random poster button
 var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
@@ -266,7 +266,11 @@ showSavedButton.addEventListener("click", showSavedPosters) //eventListener to g
 backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
 showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
 savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to save a poster
-unmotivationalPosterButton.addEventListener("click", toggleToUnmotivation) //eventListener to go to unmotivational poster page
+unmotivationalPosterButton.addEventListener("click", function () {
+  toggleToUnmotivation(); // hide main and show unmotivational page
+  cleanData(unmotivationalPosters); // clean data from unmotivationalPosters
+  displayUnmotivationalPosters(); // Display cleaned posters
+ }); //eventListener to go to unmotivational poster page and generate unmotivational posters in the grid.
 unmotivationalBackButton.addEventListener("click", unmotivationalBack) //eventListener to go back from unmotivational page
 
 // Load event
@@ -389,6 +393,23 @@ function displaySavedPosters() {
   }
 }
 
+function displayUnmotivationalPosters() {
+  unmotivationalPostersGrid.innerHTML = '' //clear existing posters
+
+  for (var i = 0; i < cleanedPosters.length; i++) {
+    var poster = cleanedPosters[i]
+
+    //create and append the mini-poster HTML
+    unmotivationalPostersGrid.innerHTML += `
+    <div class="mini-poster">
+      <img src="${poster.imageURL}" alt="Unmotivational Poster Image">
+      <h2>${poster.title}</h2>
+      <h4>${poster.quote}</h4>
+    </div>
+    `
+  }
+}
+
 function cleanData(data) {
   for (var i = 0; i < data.length; i++) {
     // Access each object in umotivationalPosters
@@ -405,5 +426,3 @@ function cleanData(data) {
     cleanedPosters.push(cleanedPoster);
   }
 }
-
-cleanData(unmotivationalPosters)
