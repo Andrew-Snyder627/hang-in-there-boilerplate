@@ -15,11 +15,14 @@ var showSavedButton = document.querySelector('.show-saved') //Show saved posters
 var backToMainButton = document.querySelector('.back-to-main') //back to main button
 var showMyPosterButton = document.querySelector('.make-poster') //button to show created poster
 var savePosterButton = document.querySelector('.save-poster') // button to save poster
+var unmotivationalPosterButton = document.querySelector('.unmotivational-button') //Unmotivational posters button
+var unmotivationalBackButton = document.querySelector('.back-to-main-unmotivated') //back to main from unmotivational
 
 // Pages
 var mainPage = document.querySelector('.main-poster') //selecting the mainPage
 var formPage = document.querySelector('.poster-form') //selecting the formPage
 var savedPage = document.querySelector('.saved-posters') //selecting the savedPage
+var unmotivationalPage = document.querySelector('.unmotivational-poster') //selects unmotivationalPage
 
 // Input Fields
 var ownPosterImage = document.querySelector('#poster-image-url') // image url field to create new poster
@@ -137,6 +140,8 @@ showSavedButton.addEventListener("click", showSavedPosters) //eventListener to g
 backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
 showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
 savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to save a poster
+unmotivationalPosterButton.addEventListener("click", toggleToUnmotivation) //eventListener to go to unmotivational poster page
+unmotivationalBackButton.addEventListener("click", unmotivationalBack) //eventListener to go back from unmotivational page
 
 // Load event
 window.addEventListener('load', changeContent); //eventListener on the browser window, fires when the entire page is loaded
@@ -190,6 +195,16 @@ function showSavedPosters() {
 
 function goBackToMain() {
   savedPage.classList.add('hidden')
+  mainPage.classList.remove('hidden')
+}
+
+function toggleToUnmotivation() {
+  mainPage.classList.add('hidden')
+  unmotivationalPage.classList.remove('hidden')
+}
+
+function unmotivationalBack() {
+  unmotivationalPage.classList.add('hidden')
   mainPage.classList.remove('hidden')
 }
 
