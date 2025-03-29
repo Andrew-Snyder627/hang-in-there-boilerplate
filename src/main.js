@@ -1,12 +1,13 @@
 // query selector variables go here 👇
-// Main Poster
+// Main Poster Page
 var posterImage = document.querySelector('.poster-img') // poster image
 var posterTitle = document.querySelector('.poster-title') // poster title
 var posterQuote = document.querySelector('.poster-quote') // poster quote
 
-// Saved Posters //Is this in a good spot?
+// Poster Grids
 var savedGrid = document.querySelector('.saved-posters-grid') //selects saved poster grid area
 var unmotivationalPostersGrid = document.querySelector('.unmotivational-posters-grid') //selects unmotivational poster grid
+
 // Buttons
 var showRandomButton = document.querySelector('.show-random') // show another random poster button
 var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
@@ -256,22 +257,38 @@ var unmotivationalPosters = [
 var cleanedPosters = []
 
 var savedPosters = [];
+
 var currentPoster;
 
 // event listeners go here 👇
 showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
-makePosterButton.addEventListener("click", toggleToForm) //eventListener to create form
-takeMeBackButton.addEventListener("click", toggleToMain) //eventListener to go back to main page
-showSavedButton.addEventListener("click", showSavedPosters) //eventListener to go to saved poster pages
-backToMainButton.addEventListener("click", goBackToMain) //eventListener to go back to main
+
+makePosterButton.addEventListener("click", function() { 
+  showPage(formPage)
+}) //eventListener to create form
+takeMeBackButton.addEventListener("click", function() { 
+  showPage(mainPage)
+}) //eventListener to go back to main page
+showSavedButton.addEventListener("click", function() { 
+  showPage(savedPage)
+  displaySavedPosters()
+}) //eventListener to go to saved poster pages
+backToMainButton.addEventListener("click", function() { 
+  showPage(mainPage)
+}) //eventListener to go back to main
 showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
+
 savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to save a poster
+
 unmotivationalPosterButton.addEventListener("click", function () {
-  toggleToUnmotivation(); // hide main and show unmotivational page
+  showPage(unmotivationalPage); // hide main and show unmotivational page
   cleanData(unmotivationalPosters); // clean data from unmotivationalPosters
   displayUnmotivationalPosters(); // Display cleaned posters
  }); //eventListener to go to unmotivational poster page and generate unmotivational posters in the grid.
-unmotivationalBackButton.addEventListener("click", unmotivationalBack) //eventListener to go back from unmotivational page
+
+unmotivationalBackButton.addEventListener("click", function() {
+  showPage(mainPage)
+}) //eventListener to go back from unmotivational page
 
 // Load event
 window.addEventListener('load', changeContent); //eventListener on the browser window, fires when the entire page is loaded
@@ -306,36 +323,14 @@ function changeContent() { //function to change the poster content
   posterQuote.innerText = currentPoster.quote;
 }
 
-// Refactor to a reusable function to control shown/hidden toggleElement with page as the argument, possible if statement
-function toggleToForm() {
-  mainPage.classList.add('hidden')
-  formPage.classList.remove('hidden')
-}
+function showPage(pageToShow) {
+  var allPages = [mainPage, formPage, savedPage, unmotivationalPage]
 
-function toggleToMain() {
-  formPage.classList.add('hidden')
-  mainPage.classList.remove('hidden')
-}
+  for (var i = 0; i < allPages.length; i++) {
+    allPages[i].classList.add('hidden')
+  }
 
-function showSavedPosters() {
-  mainPage.classList.add('hidden')
-  savedPage.classList.remove('hidden')
-  displaySavedPosters()
-}
-
-function goBackToMain() {
-  savedPage.classList.add('hidden')
-  mainPage.classList.remove('hidden')
-}
-
-function toggleToUnmotivation() {
-  mainPage.classList.add('hidden')
-  unmotivationalPage.classList.remove('hidden')
-}
-
-function unmotivationalBack() {
-  unmotivationalPage.classList.add('hidden')
-  mainPage.classList.remove('hidden')
+  pageToShow.classList.remove('hidden')
 }
 
 function createNewPoster(event) {
@@ -414,15 +409,15 @@ function cleanData(data) {
   for (var i = 0; i < data.length; i++) {
     // Access each object in umotivationalPosters
     
-    var unmotivationalPoster = data[i];
+    var unmotivationalPoster = data[i]
     // pull out the name, description, & image url
     //use these attributes to create a new unmotivational poster object
     var cleanedPoster = createPoster(
       unmotivationalPoster.img_url,
       unmotivationalPoster.name,
       unmotivationalPoster.description
-    );
+    )
     
-    cleanedPosters.push(cleanedPoster);
+    cleanedPosters.push(cleanedPoster)
   }
 }
