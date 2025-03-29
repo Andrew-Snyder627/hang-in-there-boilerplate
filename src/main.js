@@ -272,7 +272,7 @@ takeMeBackButton.addEventListener("click", function() {
 showSavedButton.addEventListener("click", function() { 
   showPage(savedPage)
   displaySavedPosters()
-}) //eventListener to go to saved poster pages
+}) //eventListener to go to saved poster pages & display the posters in the grid
 backToMainButton.addEventListener("click", function() { 
   showPage(mainPage)
 }) //eventListener to go back to main
@@ -281,7 +281,7 @@ showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to
 savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to save a poster
 
 unmotivationalPosterButton.addEventListener("click", function () {
-  showPage(unmotivationalPage); // hide main and show unmotivational page
+  showPage(unmotivationalPage); // show unmotivational page
   cleanData(unmotivationalPosters); // clean data from unmotivationalPosters
   displayUnmotivationalPosters(); // Display cleaned posters
  }); //eventListener to go to unmotivational poster page and generate unmotivational posters in the grid.
@@ -293,6 +293,42 @@ unmotivationalBackButton.addEventListener("click", function() {
 // Load event
 window.addEventListener('load', changeContent); //eventListener on the browser window, fires when the entire page is loaded
 
+//Target area for unmotivational poster grid
+
+unmotivationalPostersGrid.addEventListener('dblclick', removePoster) //Event Listener to remove poster from grid
+
+function removePoster() {
+  var posterToRemove = event.target.closest('.mini-poster')
+
+  if (posterToRemove) {
+    removePosterFromArray(posterToRemove, cleanedPosters)
+    displayUnmotivationalPosters()
+  }
+}
+
+function removePosterFromArray(posterElement, posterArray) {
+  var posterTitle = posterElement.querySelector('h2').innerText
+  var posterQuote = posterElement.querySelector('h4').innerText
+  var posterImage = posterElement.querySelector('img').src
+
+  // new array without the poster that matches
+  var updatedPosters = []
+  // loop through and only add posters that don't match the clicked poster
+  for (var i = 0; i < posterArray.length; i++) {
+    var poster = posterArray[i]
+
+    if (
+      poster.imageURL !== posterImage ||
+      poster.title !== posterTitle ||
+      poster.quote !== posterQuote
+    ) {
+      updatedPosters.push(poster)
+    }
+  }
+  
+  //update the cleanedPosters array with the new array
+  cleanedPosters = updatedPosters;
+}
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
@@ -421,3 +457,9 @@ function cleanData(data) {
     cleanedPosters.push(cleanedPoster)
   }
 }
+
+// Iteration 5 steps:
+// 1: add event listener to the entire parent container, unmotivationalposter grid
+// 2: Use logic to isolate the poster that was clicked on. Possibly checking for the .miniposter class
+// 3: Remove the target from the cleanedPosters Array
+// 4: Re Display the unmotivational posters via displayUnmotivationalPosters()
