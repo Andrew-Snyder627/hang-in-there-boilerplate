@@ -305,44 +305,6 @@ window.addEventListener('load', changeContent); //eventListener on the browser w
 
 unmotivationalPostersGrid.addEventListener('dblclick', removePoster) //Event Listener to remove poster from grid
 
-function removePoster(event) {
-  var posterToRemove = event.target.closest('.mini-poster')
-
-  if (!posterToRemove) {
-    console.log("No Poster Selected to Remove")
-    return
-  }
-    // Remove poster from cleanedPosters array and redisplay updated posters
-    removePosterFromArray(posterToRemove, cleanedPosters)
-    displayUnmotivationalPosters() // Re render after deletion
-  }
-
-function removePosterFromArray(posterElement, posterArray) {
-  var posterTitle = posterElement.querySelector('h2').innerText
-  var posterQuote = posterElement.querySelector('h4').innerText
-  var posterImage = posterElement.querySelector('img').src
-
-  var relativeImagePath = './assets/' + posterImage.split('/assets/')[1]
-
-  // new array without the poster that matches
-  var updatedPosters = []
-  // loop through and only add posters that don't match the clicked poster
-  for (var i = 0; i < posterArray.length; i++) {
-    var poster = posterArray[i]
-
-    if (
-      poster.imageURL !== relativeImagePath || // had to add this logic as .src was returning a different image path than expected. This should match correctly
-      poster.title !== posterTitle ||
-      poster.quote !== posterQuote
-    ) {
-      updatedPosters.push(poster)
-    }
-  }
-
-  //update the cleanedPosters array with the new array
-  cleanedPosters = updatedPosters;
-} //Need to move this to a better spot
-
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
 function getRandomIndex(array) {
@@ -470,4 +432,42 @@ function cleanData(data) {
     
     cleanedPosters.push(cleanedPoster)
   }
+}
+
+function removePoster(event) {
+  var posterToRemove = event.target.closest('.mini-poster')
+
+  if (!posterToRemove) {
+    console.log("No Poster Selected to Remove") // Can I just have return after this if statement? Log more for me, user would never see that
+    return
+  }
+    // Remove poster from cleanedPosters array and redisplay updated posters
+    removePosterFromArray(posterToRemove, cleanedPosters)
+    displayUnmotivationalPosters() // Re render after deletion
+  }
+
+function removePosterFromArray(posterElement, posterArray) {
+  var posterTitle = posterElement.querySelector('h2').innerText
+  var posterQuote = posterElement.querySelector('h4').innerText
+  var posterImage = posterElement.querySelector('img').src
+
+  var relativeImagePath = './assets/' + posterImage.split('/assets/')[1]
+
+  // new array without the poster that matches
+  var updatedPosters = []
+  // loop through and only add posters that don't match the clicked poster
+  for (var i = 0; i < posterArray.length; i++) {
+    var poster = posterArray[i]
+
+    if (
+      poster.imageURL !== relativeImagePath || // had to add this logic as .src was returning a different image path than expected. This should match correctly
+      poster.title !== posterTitle ||
+      poster.quote !== posterQuote
+    ) {
+      updatedPosters.push(poster)
+    }
+  }
+
+  //update the cleanedPosters array with the new array
+  cleanedPosters = updatedPosters;
 }
