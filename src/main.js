@@ -260,6 +260,8 @@ var savedPosters = [];
 
 var currentPoster;
 
+var hasCleanData = false; // Variable to track when cleanData has been used, I only want this to happen once from now on
+
 // event listeners go here 👇
 showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
 
@@ -282,7 +284,13 @@ savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to
 
 unmotivationalPosterButton.addEventListener("click", function () {
   showPage(unmotivationalPage); // show unmotivational page
-  cleanData(unmotivationalPosters); // clean data from unmotivationalPosters
+
+  // Only call clean data if it hasn't been used before
+  if (!hasCleanData) {
+    cleanData(unmotivationalPosters); // clean data from unmotivationalPosters
+    hasCleanData = true; // swaps hasCleanData to true, preventing cleanData from being called again.
+  }
+
   displayUnmotivationalPosters(); // Display cleaned posters
  }); //eventListener to go to unmotivational poster page and generate unmotivational posters in the grid.
 
@@ -463,9 +471,3 @@ function cleanData(data) {
     cleanedPosters.push(cleanedPoster)
   }
 }
-
-// Iteration 5 steps:
-// 1: add event listener to the entire parent container, unmotivationalposter grid
-// 2: Use logic to isolate the poster that was clicked on. Possibly checking for the .miniposter class
-// 3: Remove the target from the cleanedPosters Array
-// 4: Re Display the unmotivational posters via displayUnmotivationalPosters()
