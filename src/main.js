@@ -407,7 +407,7 @@ function displayUnmotivationalPosters() {
 
     //create and append the mini-poster HTML
     unmotivationalPostersGrid.innerHTML += `
-    <div class="mini-poster">
+    <div class="mini-poster" id="unmotivational-mini">
       <img src="${poster.imageURL}" alt="Unmotivational Poster Image">
       <h2>${poster.title}</h2>
       <h4>${poster.quote}</h4>
@@ -417,7 +417,6 @@ function displayUnmotivationalPosters() {
 }
 
 function cleanData(data) {
-  cleanedPosters = [] //clearing previous posters to prevent duplicate poster creation
 
   for (var i = 0; i < data.length; i++) {
     // Access each object in umotivationalPosters

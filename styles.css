@@ -152,8 +152,19 @@ button:hover {
 }
 
 .unmotivational-posters-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
   padding: 20px;
+}
+
+#unmotivational-mini {
+  background-color: grey;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+#unmotivational-mini h2 {
+  color: black;
 }
