@@ -1,34 +1,34 @@
 // query selector variables go here 👇
 // Main Poster Page
-var posterImage = document.querySelector('.poster-img') // poster image
-var posterTitle = document.querySelector('.poster-title') // poster title
-var posterQuote = document.querySelector('.poster-quote') // poster quote
+var posterImage = document.querySelector('.poster-img')
+var posterTitle = document.querySelector('.poster-title')
+var posterQuote = document.querySelector('.poster-quote')
 
 // Poster Grids
-var savedGrid = document.querySelector('.saved-posters-grid') //selects saved poster grid area
-var unmotivationalPostersGrid = document.querySelector('.unmotivational-posters-grid') //selects unmotivational poster grid
+var savedGrid = document.querySelector('.saved-posters-grid')
+var unmotivationalPostersGrid = document.querySelector('.unmotivational-posters-grid')
 
 // Buttons
-var showRandomButton = document.querySelector('.show-random') // show another random poster button
-var makePosterButton = document.querySelector('.show-form') //selecting the make your own poster button
-var takeMeBackButton = document.querySelector('.show-main') // nevermind, take me back button
-var showSavedButton = document.querySelector('.show-saved') //Show saved posters button
-var backToMainButton = document.querySelector('.back-to-main') //back to main button
-var showMyPosterButton = document.querySelector('.make-poster') //button to show created poster
-var savePosterButton = document.querySelector('.save-poster') // button to save poster
-var unmotivationalPosterButton = document.querySelector('.unmotivational-button') //Unmotivational posters button
-var unmotivationalBackButton = document.querySelector('.back-to-main-unmotivated') //back to main from unmotivational
+var showRandomButton = document.querySelector('.show-random')
+var makePosterButton = document.querySelector('.show-form')
+var takeMeBackButton = document.querySelector('.show-main')
+var showSavedButton = document.querySelector('.show-saved')
+var backToMainButton = document.querySelector('.back-to-main')
+var showMyPosterButton = document.querySelector('.make-poster')
+var savePosterButton = document.querySelector('.save-poster')
+var unmotivationalPosterButton = document.querySelector('.unmotivational-button')
+var unmotivationalBackButton = document.querySelector('.back-to-main-unmotivated')
 
 // Pages
-var mainPage = document.querySelector('.main-poster') //selecting the mainPage
-var formPage = document.querySelector('.poster-form') //selecting the formPage
-var savedPage = document.querySelector('.saved-posters') //selecting the savedPage
-var unmotivationalPage = document.querySelector('.unmotivational-poster') //selects unmotivationalPage
+var mainPage = document.querySelector('.main-poster')
+var formPage = document.querySelector('.poster-form')
+var savedPage = document.querySelector('.saved-posters')
+var unmotivationalPage = document.querySelector('.unmotivational-poster')
 
 // Input Fields
-var ownPosterImage = document.querySelector('#poster-image-url') // image url field to create new poster
-var ownPosterTitle = document.querySelector('#poster-title') // poster title field to create new poster
-var ownPosterQuote = document.querySelector('#poster-quote') // poster quote field to create new poster
+var ownPosterImage = document.querySelector('#poster-image-url')
+var ownPosterTitle = document.querySelector('#poster-title')
+var ownPosterQuote = document.querySelector('#poster-quote')
 
 
 // we've provided you with some data to work with 👇
@@ -260,58 +260,54 @@ var savedPosters = [];
 
 var currentPoster;
 
-var hasCleanData = false; // Variable to track when cleanData has been used, I only want this to happen once from now on
+var hasCleanData = false; // Variable to track when cleanData has been used
 
 // event listeners go here 👇
-showRandomButton.addEventListener("click", changeContent) //eventListener to show another random poster
+showRandomButton.addEventListener('click', changeContent)
 
-makePosterButton.addEventListener("click", function() { 
+makePosterButton.addEventListener('click', function() { 
   showPage(formPage)
-}) //eventListener to create form
-takeMeBackButton.addEventListener("click", function() { 
+})
+takeMeBackButton.addEventListener('click', function() { 
   showPage(mainPage)
-}) //eventListener to go back to main page
-showSavedButton.addEventListener("click", function() { 
+})
+showSavedButton.addEventListener('click', function() { 
   showPage(savedPage)
   displaySavedPosters()
-}) //eventListener to go to saved poster pages & display the posters in the grid
-backToMainButton.addEventListener("click", function() { 
+})
+backToMainButton.addEventListener('click', function() { 
   showPage(mainPage)
-}) //eventListener to go back to main
-showMyPosterButton.addEventListener("click", createNewPoster) //eventListener to create a new poster from form
+})
+showMyPosterButton.addEventListener('click', createNewPoster)
 
-savePosterButton.addEventListener("click", saveCurrentPoster) //eventListener to save a poster
+savePosterButton.addEventListener('click', saveCurrentPoster)
 
-unmotivationalPosterButton.addEventListener("click", function () {
-  showPage(unmotivationalPage); // show unmotivational page
+unmotivationalPosterButton.addEventListener('click', function () {
+  showPage(unmotivationalPage);
 
-  // Only call clean data if it hasn't been used before
   if (!hasCleanData) {
-    cleanData(unmotivationalPosters); // clean data from unmotivationalPosters
+    cleanData(unmotivationalPosters);
     hasCleanData = true; // swaps hasCleanData to true, preventing cleanData from being called again.
   }
 
-  displayUnmotivationalPosters(); // Display cleaned posters
- }); //eventListener to go to unmotivational poster page and generate unmotivational posters in the grid.
+  displayUnmotivationalPosters();
+ });
 
-unmotivationalBackButton.addEventListener("click", function() {
+unmotivationalBackButton.addEventListener('click', function() {
   showPage(mainPage)
-}) //eventListener to go back from unmotivational page
+})
 
 // Load event
-window.addEventListener('load', changeContent); //eventListener on the browser window, fires when the entire page is loaded
+window.addEventListener('load', changeContent);
 
 //Target area for unmotivational poster grid
-
-unmotivationalPostersGrid.addEventListener('dblclick', removePoster) //Event Listener to remove poster from grid
+unmotivationalPostersGrid.addEventListener('dblclick', removePoster)
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
-// This function returns a random valid index from the given array
-// Math.floor rounds it down to the nearest whole number
 
 function createPoster(imageURL, title, quote) {
   return {
@@ -321,7 +317,7 @@ function createPoster(imageURL, title, quote) {
     quote: quote}
 }
 
-function changeContent() { //function to change the poster content
+function changeContent() {
 
   currentPoster = createPoster(
     images[getRandomIndex(images)],
@@ -369,13 +365,12 @@ function createNewPoster(event) {
 }
 
 function saveCurrentPoster() {
-  // console.log(currentPoster)
-  if (!savedPosters.some(isSamePoster)) { // iterator method to check each poster against method below, refactor with include
-    savedPosters.push(currentPoster) // add to the array if above condition is met
+  if (!savedPosters.some(isSamePoster)) {
+    savedPosters.push(currentPoster)
   }
 }
 
-function isSamePoster(poster) { // Helper to check if poster already exists for function above
+function isSamePoster(poster) {
   return (
     poster.imageURL === currentPoster.imageURL &&
     poster.title === currentPoster.title &&
@@ -384,7 +379,7 @@ function isSamePoster(poster) { // Helper to check if poster already exists for 
 }
 
 function displaySavedPosters() {
-  savedGrid.innerHTML = '' // Clear the existing grid, ran into trouble here
+  savedGrid.innerHTML = ''
 
   for (var i = 0; i < savedPosters.length; i++) {
     var poster = savedPosters[i];
@@ -400,7 +395,7 @@ function displaySavedPosters() {
 }
 
 function displayUnmotivationalPosters() {
-  unmotivationalPostersGrid.innerHTML = '' //clear existing posters
+  unmotivationalPostersGrid.innerHTML = ''
 
   for (var i = 0; i < cleanedPosters.length; i++) {
     var poster = cleanedPosters[i]
@@ -421,8 +416,7 @@ function cleanData(data) {
   for (var i = 0; i < data.length; i++) {
     // Access each object in umotivationalPosters
     var unmotivationalPoster = data[i]
-    // pull out the name, description, & image url
-    //use these attributes to create a new unmotivational poster object
+
     var cleanedPoster = createPoster(
       unmotivationalPoster.img_url,
       unmotivationalPoster.name,
@@ -437,12 +431,11 @@ function removePoster(event) {
   var posterToRemove = event.target.closest('.mini-poster')
 
   if (!posterToRemove) {
-    console.log("No Poster Selected to Remove") // Can I just have return after this if statement? Log more for me, user would never see that
     return
   }
     // Remove poster from cleanedPosters array and redisplay updated posters
     removePosterFromArray(posterToRemove, cleanedPosters)
-    displayUnmotivationalPosters() // Re render after deletion
+    displayUnmotivationalPosters()
   }
 
 function removePosterFromArray(posterElement, posterArray) {
@@ -452,14 +445,13 @@ function removePosterFromArray(posterElement, posterArray) {
 
   var relativeImagePath = './assets/' + posterImage.split('/assets/')[1]
 
-  // new array without the poster that matches
   var updatedPosters = []
   // loop through and only add posters that don't match the clicked poster
   for (var i = 0; i < posterArray.length; i++) {
     var poster = posterArray[i]
 
     if (
-      poster.imageURL !== relativeImagePath || // had to add this logic as .src was returning a different image path than expected. This should match correctly
+      poster.imageURL !== relativeImagePath ||
       poster.title !== posterTitle ||
       poster.quote !== posterQuote
     ) {
